@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="../template.xhtml">
+
+	<ui:define name="main">
+
+		<div class="container">
+			<h2>Formulaire - Commande</h2>
+			<h:form>
+
+				<h:inputHidden value="#{commandeManagedBean.commande.id}" />
+
+				<div class="form-group">
+					<div align="left">
+						<label for="dateCommande">Date de Commande</label>
+					</div>
+					<div align="left">
+						<h:inputText name="dateCommande"
+							value="#{commandeManagedBean.commande.dateCommande}">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+						</h:inputText>
+					</div>
+				</div>
+				<div class="form-group">
+					<div align="left">
+						<label for="dateLivraison">Date de Livraison</label>
+					</div>
+					<div align="left">
+						<h:inputText name="dateLivraison"
+							value="#{commandeManagedBean.commande.dateLivraison}">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+						</h:inputText>
+					</div>
+				</div>
+
+				<div align="left">
+					<p:commandButton value="Select Your Character" onclick="PF('dlg2').show();" />
+				</div>
+				<div align="left">
+					<h:outputText value="#{commandeManagedBean.commande.client.nom}" />
+				</div>
+
+
+				<div align="left">
+					<p:commandButton action="#{commandeManagedBean.create()}"
+						value="Envoyer" />
+				</div>
+
+				<p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true"
+					height="100">
+					<p:column headerText="Id">
+						<f:facet name="output"></f:facet> #{user.id}
+					</p:column>
+					<p:column headerText="Nom">
+						<f:facet name="output">
+						</f:facet>
+						#{user.nom}
+					</p:column>
+					<p:column headerText="Prenom">
+						<f:facet name="output">
+						</f:facet>#{user.prenom}
+					</p:column>
+					<p:column headerText="Adresse">
+						<f:facet name="output">
+						</f:facet>#{user.adresse}
+					</p:column>
+					<p:column headerText="action">
+						<p:commandButton action="#{commandeManagedBean.selectUser()}" 
+							value="Mod." icon="ui icon-edit" />
+					</p:column>
+				</p:dialog>
+			</h:form>
+		</div>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="../template.xhtml">
+
+
+	<ui:define name="main">
+		<div class="container">
+			<h:form id="form" name="form-list-user">
+				<p:dataTable value="#{commandeManagedBean.commandes}" var="com">
+					<f:facet name="header">List Command -> <p:commandButton
+							action="#{commandeManagedBean.addComm()}" value="+ Add" />
+					</f:facet>
+
+					<p:column headerText="Id">
+						<f:facet name="output"></f:facet> #{com.id}
+					</p:column>
+
+					<p:column headerText="Date de Commande">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{com.dateCommande}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{com.dateCommande}" style="width:96%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Date de Livraison">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{com.dateLivraison}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{com.dateLivraison}" style="width:96%" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Client">
+						<f:facet name="output"></f:facet> #{com.client.nom}
+					</p:column>
+					<p:column headerText="Articles">
+						<p:commandButton value="View" action="#{navBarManagedBean.goToCommandes()}"/>
+					</p:column>
+					<p:column headerText="action">
+						<p:commandButton action="#{commandeManagedBean.updateComm()}"
+							value="Mod." icon="ui-icon-edit" />
+						<p:commandButton action="#{commandeManagedBean.deleteComm()}"
+							update="form" value="Del." icon="ui-icon-cancel-2" />
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

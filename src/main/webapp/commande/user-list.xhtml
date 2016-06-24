@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="../template.xhtml">
+
+
+	<div class="container">
+		<h:form id="form" name="form-list-user">
+			<p:dataTable value="#{utilisateurManagedBean.utilisateurs}"
+				var="user">
+				<f:facet name="header">List User -> <p:commandButton
+						action="#{utilisateurManagedBean.add()}" value="+ Add" />
+				</f:facet>
+
+				<p:column headerText="Id">
+					<f:facet name="output"></f:facet> #{user.id}
+					</p:column>
+				<p:column headerText="Nom">
+					<f:facet name="output">
+					</f:facet>
+						#{user.nom}
+					</p:column>
+				<p:column headerText="Prenom">
+					<f:facet name="output">
+					</f:facet>#{user.prenom}
+					</p:column>
+				<p:column headerText="Adresse">
+					<f:facet name="output">
+					</f:facet>#{user.adresse}
+					</p:column>
+				<p:column headerText="Date de Naissance">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{user.naissance}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{user.naissance}" style="width:96%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="action">
+					<p:commandButton action="#{utilisateurManagedBean.update()}"
+						value="Mod." icon="ui-icon-edit" />
+					<p:commandButton action="#{utilisateurManagedBean.delete()}"
+						update="form" value="Del." icon="ui-icon-cancel-2" />
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</div>
+</ui:composition>

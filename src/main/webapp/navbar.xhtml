@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<h:form id="nav-form">
+	
+		<p:menubar >
+			<p:menuitem value="User"
+				action="#{navBarManagedBean.goToUtilisateur()}" icon="fa-user">
+			</p:menuitem>
+			<p:menuitem value="Order"
+				action="#{navBarManagedBean.goToCommandes()}" icon="fa fa-file-text">
+			</p:menuitem>
+			<f:facet name="options">
+				<p:commandButton value="Logout" icon="ui-icon-extlink" action="#{navBarManagedBean.logout()}" />
+			</f:facet>
+		</p:menubar>
+
+
+	</h:form>
+
+</ui:composition>
