@@ -45,6 +45,9 @@
 					<p:commandButton action="#{utilisateurManagedBean.delete()}"
 						update="form" value="Del." icon="ui-icon-cancel-2" />
 				</p:column>
+				<f:facet name="header">List User -> <p:commandButton
+						action="#{utilisateurManagedBean.add()}" value="+ Add" />
+				</f:facet>
 
 			</p:dataTable>
 		</h:form>

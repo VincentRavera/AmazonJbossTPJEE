@@ -14,7 +14,7 @@ public class CommandeDAOImpl implements CommandeDAO {
 	
 	@PersistenceContext
 	private EntityManager em;
-
+//
 
 	@Override
 	public Commande save(Commande com) {

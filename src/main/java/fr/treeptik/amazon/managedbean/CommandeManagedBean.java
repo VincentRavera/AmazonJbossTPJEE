@@ -8,6 +8,7 @@ import javax.faces.model.ListDataModel;
 import fr.treeptik.amazon.model.Commande;
 import fr.treeptik.amazon.model.Utilisateur;
 import fr.treeptik.amazon.service.CommandeService;
+import fr.treeptik.amazon.service.UtilisateurService;
 
 @ManagedBean
 @RequestScoped
@@ -16,7 +17,10 @@ public class CommandeManagedBean {
 	@EJB
 	private CommandeService commandeService;
 	
-	private Commande commande;
+	@EJB
+	private UtilisateurService userService;
+	
+	private Commande commande = new Commande();
 	
 	private ListDataModel<Commande> commandes = new ListDataModel<>();
 	
@@ -27,10 +31,16 @@ public class CommandeManagedBean {
 	}
 	
 	public String create(){
-		commande = commandeService.save(this.commande);
+		commande = commandeService.save(commande);
 		return "commande-list";
 		
 	}
+	
+	public ListDataModel<Utilisateur> getUsers() {
+		users.setWrappedData(userService.findAll());
+		return users;
+	}
+
 	public String updateComm() {
 		commande = commandes.getRowData();
 		return "commande";

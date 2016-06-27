@@ -38,7 +38,7 @@
 						</p:cellEditor>
 					</p:column>
 					<p:column headerText="Client">
-						<f:facet name="output"></f:facet> #{com.client.nom}
+						<f:facet name="output"></f:facet>#{commandeManagedBean.commande.client.nom}
 					</p:column>
 					<p:column headerText="Articles">
 						<p:commandButton value="View" action="#{navBarManagedBean.goToCommandes()}"/>
