@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="../template.xhtml">
+
+
+	<ui:define name="main">
+		<div class="container">
+			<h:form id="form" name="form-list-user">
+				<p:dataTable value="#{articleManagedBean.articles}"
+					var="article">
+					<f:facet name="header">List User -> <p:commandButton action="#{articleManagedBean.addLivre()}" value="+ Add Livre" /> </f:facet>
+
+					<p:column headerText="Id">
+						<f:facet name="output"></f:facet> #{article.id}
+					</p:column>
+					<p:column headerText="Prix">
+						<f:facet name="output">
+						</f:facet>
+						#{article.prix}
+					</p:column>
+					<p:column headerText="Titre">
+						<f:facet name="output">
+						</f:facet>#{article.titre}
+					</p:column>
+					<!-- <p:column headerText="action">
+						<p:commandButton action="#{ut}" 
+							value="Mod." icon="ui-icon-edit" />
+						<p:commandButton action="#{utilisateurManagedBean.delete()}" update="form"
+							value="Del." icon="ui-icon-cancel-2" />
+					</p:column> -->
+
+				</p:dataTable>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

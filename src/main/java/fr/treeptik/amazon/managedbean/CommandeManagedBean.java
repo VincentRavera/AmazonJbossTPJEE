@@ -50,7 +50,6 @@ public class CommandeManagedBean {
 		return "commande";
 	}
 	public String deleteComm() {
-		System.out.println("Del Del TEst");
 		commande = commandes.getRowData();
 		commandeService.remove(commande);
 		return "commande-list";

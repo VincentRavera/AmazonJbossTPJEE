@@ -7,6 +7,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.ListDataModel;
 
+import org.jboss.logging.Logger;
 import org.primefaces.event.RowEditEvent;
 
 import fr.treeptik.amazon.model.Utilisateur;
@@ -16,6 +17,8 @@ import fr.treeptik.amazon.service.UtilisateurService;
 @RequestScoped
 public class UtilisateurManagedBean {
 
+	Logger logger = Logger.getLogger(UtilisateurManagedBean.class);
+	
 	@EJB
 	private UtilisateurService userService;
 

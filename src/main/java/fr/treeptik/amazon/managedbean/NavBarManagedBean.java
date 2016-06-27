@@ -14,6 +14,9 @@ public class NavBarManagedBean {
 	public String goToCommandes(){
 		return "/commande/commande-list";
 	}
+	public String goToArticle(){
+		return "/article/article-list";
+	}
 	public String logout() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "/user/user-list?faces-redirect=true";
