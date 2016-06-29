@@ -10,7 +10,12 @@
 			<h:form id="form" name="form-list-user">
 				<p:dataTable value="#{articleManagedBean.articles}"
 					var="article">
-					<f:facet name="header">List User -> <p:commandButton action="#{articleManagedBean.addLivre()}" value="+ Add Livre" /> </f:facet>
+					<f:facet name="header">
+						List Article ->
+						<p:commandButton action="#{articleManagedBean.addLivre()}" value="+ Add Livre" />
+						<p:commandButton action="#{articleManagedBean.addCd()}" value="+ Add Cd" />
+						<p:commandButton action="#{articleManagedBean.addDvd()}" value="+ Add Dvd" />
+					</f:facet>
 
 					<p:column headerText="Id">
 						<f:facet name="output"></f:facet> #{article.id}
@@ -24,12 +29,12 @@
 						<f:facet name="output">
 						</f:facet>#{article.titre}
 					</p:column>
-					<!-- <p:column headerText="action">
-						<p:commandButton action="#{ut}" 
+					 <p:column headerText="action">
+						<p:commandButton action="#{articleManagedBean.updateArticle()}" 
 							value="Mod." icon="ui-icon-edit" />
-						<p:commandButton action="#{utilisateurManagedBean.delete()}" update="form"
+						<p:commandButton action="#{articleManagedBean.removeArticle()}" update="form"
 							value="Del." icon="ui-icon-cancel-2" />
-					</p:column> -->
+					</p:column>
 
 				</p:dataTable>
 			</h:form>

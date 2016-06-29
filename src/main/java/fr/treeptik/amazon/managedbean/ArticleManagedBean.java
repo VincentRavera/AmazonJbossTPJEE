@@ -33,6 +33,14 @@ public class ArticleManagedBean {
 		article = articleService.save(livre);
 		return "article-list";
 	}
+	public String createCd() {
+		article = articleService.save(cd);
+		return "article-list";
+	}
+	public String createDvd() {
+		article = articleService.save(dvd);
+		return "article-list";
+	}
 	
 	public String addLivre() {
 		article = new Livre();
@@ -48,7 +56,28 @@ public class ArticleManagedBean {
 	}
 	public String removeArticle() {
 		System.out.println("Del Del TEst");
+		article = articles.getRowData();
+		articleService.remove(article);
 		return "article-list";
+	}
+	
+	public String updateArticle() {
+		article = articles.getRowData();
+		if (article instanceof Livre) {
+			livre = (Livre) article;
+			return "livre";
+		}
+		else if (article instanceof Cd) {
+			cd = (Cd) article;
+			return "cd";
+		}
+		else if (article instanceof Dvd) {
+			dvd = (Dvd) article;
+			return "dvd";
+		}
+		else {
+			return "article-list";
+		}
 	}
 
 	public ListDataModel<Article> getArticles() {
