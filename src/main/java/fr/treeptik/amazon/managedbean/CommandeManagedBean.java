@@ -1,9 +1,12 @@
 package fr.treeptik.amazon.managedbean;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.model.ListDataModel;
+
+import org.jboss.logging.Logger;
 
 import fr.treeptik.amazon.model.Commande;
 import fr.treeptik.amazon.model.Utilisateur;
@@ -13,6 +16,8 @@ import fr.treeptik.amazon.service.UtilisateurService;
 @ManagedBean
 @RequestScoped
 public class CommandeManagedBean {
+	
+	Logger log = Logger.getLogger(CommandeManagedBean.class);
 
 	@EJB
 	private CommandeService commandeService;
@@ -21,20 +26,17 @@ public class CommandeManagedBean {
 	private UtilisateurService userService;
 
 	private Commande commande = new Commande();
-
+	
 	private ListDataModel<Commande> commandes = new ListDataModel<>();
 
 	private ListDataModel<Utilisateur> users = new ListDataModel<>();
 
-	public void selectUser() {
-		commande.setClient(users.getRowData());
-		if (users.getRowData() != null) {
-			System.out.println("HALLLELLLUYAAAAAA");
-		} else {
-			System.out.println("HOLLY MOOOOOOOLY !");
-		}
+	@PostConstruct
+	public void init() {
+		this.commandes.setWrappedData(commandeService.findAll());
 	}
-
+	
+	
 	public String create() {
 		commande = commandeService.save(commande);
 		return "commande-list";
@@ -71,7 +73,6 @@ public class CommandeManagedBean {
 	}
 
 	public ListDataModel<Commande> getCommandes() {
-		this.commandes.setWrappedData(commandeService.findAll());
 		return commandes;
 	}
 

@@ -1,5 +1,6 @@
 package fr.treeptik.amazon.managedbean;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -25,9 +26,13 @@ public class UtilisateurManagedBean {
 	private Utilisateur utilisateur = new Utilisateur();
 
 	private ListDataModel<Utilisateur> utilisateurs = new ListDataModel<>();
+	
+	@PostConstruct
+	public void init() {
+		utilisateurs.setWrappedData(userService.findAll());
+	}
 
 	public ListDataModel<Utilisateur> getUtilisateurs() {
-		utilisateurs.setWrappedData(userService.findAll());
 		return utilisateurs;
 	}
 

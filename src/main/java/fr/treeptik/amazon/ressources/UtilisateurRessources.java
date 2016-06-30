@@ -18,7 +18,7 @@ import javax.ws.rs.core.Application;
 import fr.treeptik.amazon.model.Utilisateur;
 import fr.treeptik.amazon.service.UtilisateurService;
 
-@Path("/utilisateurs")
+@Path("utilisateurs")
 @Produces(value="application/json")
 @Consumes(value="application/json")
 @ApplicationPath("rest")
