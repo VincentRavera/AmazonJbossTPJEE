@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -29,6 +30,17 @@ public abstract class Article implements Serializable {
 	@ManyToMany(fetch=FetchType.LAZY, mappedBy="articles")
 	private List<Commande> commandes;
 	
+	@Column(name="DTYPE", insertable = false, updatable = false)
+	private String type;
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public Date getDate() {
 		return date;
 	}
