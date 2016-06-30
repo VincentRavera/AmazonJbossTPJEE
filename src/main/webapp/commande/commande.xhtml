@@ -52,7 +52,7 @@
 
 				<p:dialog header="Select the customer" widgetVar="dlg2" modal="true"
 					height="100">
-					<p:dataTable value="#{utilisateurManagedBean.utilisateurs}"
+					<p:dataTable value="#{commandeManagedBean.users}"
 						var="user">
 						<p:column headerText="Id">
 							<f:facet name="output"></f:facet> #{user.id}

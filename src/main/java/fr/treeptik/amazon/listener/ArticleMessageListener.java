@@ -12,6 +12,8 @@ import javax.transaction.Transactional;
 import org.jboss.logging.Logger;
 
 import fr.treeptik.amazon.dao.ArticleDAO;
+import fr.treeptik.amazon.exception.DAOException;
+import fr.treeptik.amazon.exception.ServiceException;
 import fr.treeptik.amazon.model.Article;
 import fr.treeptik.amazon.model.Cd;
 import fr.treeptik.amazon.model.Dvd;
@@ -29,7 +31,7 @@ public class ArticleMessageListener implements MessageListener {
 	
 	@Override
 	@Transactional
-	public void onMessage(Message message) {
+	public void onMessage(Message message) throws ServiceException{
 		ObjectMessage msg = (ObjectMessage) message;
 		logger.info("Received Article Adding to DataBase");
 		Article article = null;
@@ -52,9 +54,9 @@ public class ArticleMessageListener implements MessageListener {
 				articleDAO.save(article);
 			}
 			logger.info("Article saved");
-		} catch (JMSException e) {
+		} catch (JMSException | DAOException e) {
 			logger.info("Non Valid Object Received");
-			e.printStackTrace();
+			throw new ServiceException("ArticleMessageListener onMessage"+e.getMessage(), e);
 		}
 		
 		

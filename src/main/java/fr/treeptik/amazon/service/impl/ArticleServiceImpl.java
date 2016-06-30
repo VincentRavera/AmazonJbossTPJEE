@@ -15,19 +15,21 @@ import javax.jms.Session;
 import javax.transaction.Transactional;
 
 import fr.treeptik.amazon.dao.ArticleDAO;
+import fr.treeptik.amazon.exception.DAOException;
+import fr.treeptik.amazon.exception.ServiceException;
 import fr.treeptik.amazon.model.Article;
 import fr.treeptik.amazon.service.ArticleService;
 
 @Stateless
 public class ArticleServiceImpl implements ArticleService {
-	
+
 	@EJB
 	private ArticleDAO articleDAO;
-	
-	@Resource(mappedName="java:/jms/AmazonArticleQueue")
+
+	@Resource(mappedName = "java:/jms/AmazonArticleQueue")
 	private Queue queue;
-	
-	@Resource(mappedName="java:/ConnectionFactory")
+
+	@Resource(mappedName = "java:/ConnectionFactory")
 	private ConnectionFactory connectionFactory;
 
 	@Override
@@ -42,8 +44,7 @@ public class ArticleServiceImpl implements ArticleService {
 			producer.send(objectMessage);
 		} catch (JMSException e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			try {
 				connection.close();
 			} catch (NullPointerException | JMSException e) {
@@ -55,24 +56,40 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	@Transactional
-	public void remove(Article article) {
-		article = this.findById(article.getId());
-		articleDAO.remove(article);
+	public void remove(Article article) throws ServiceException {
+		try {
+			article = this.findById(article.getId());
+			articleDAO.remove(article);
+		} catch (DAOException e) {
+			throw new ServiceException("ArticleService remove()" + e.getMessage(), e);
+		}
 	}
 
 	@Override
-	public List<Article> findAll() {
-		return articleDAO.findAll();
+	public List<Article> findAll() throws ServiceException {
+		try {
+			return articleDAO.findAll();
+		} catch (DAOException e) {
+			throw new ServiceException("ArticleService findAll" + e.getMessage(), e);
+		}
 	}
 
 	@Override
-	public Article findById(Integer id) {
-		return articleDAO.findById(id);
+	public Article findById(Integer id) throws ServiceException {
+		try {
+			return articleDAO.findById(id);
+		} catch (DAOException e) {
+			throw new ServiceException("ArticleService findById" + e.getMessage(), e);
+		}
 	}
 
 	@Override
-	public List<Article> findByCommand(Integer id) {
-		return articleDAO.findByCommand(id);
+	public List<Article> findByCommand(Integer id) throws ServiceException {
+		try {
+			return articleDAO.findByCommand(id);
+		} catch (DAOException e) {
+			throw new ServiceException("ArticleService findByCommand"+e.getMessage(), e);
+		}
 	}
 
 }

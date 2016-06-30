@@ -13,29 +13,34 @@ import fr.treeptik.amazon.service.UtilisateurService;
 @ManagedBean
 @RequestScoped
 public class CommandeManagedBean {
-	
+
 	@EJB
 	private CommandeService commandeService;
-	
+
 	@EJB
 	private UtilisateurService userService;
-	
+
 	private Commande commande = new Commande();
-	
+
 	private ListDataModel<Commande> commandes = new ListDataModel<>();
-	
+
 	private ListDataModel<Utilisateur> users = new ListDataModel<>();
-	
-	public void selectUser(){
+
+	public void selectUser() {
 		commande.setClient(users.getRowData());
+		if (users.getRowData() != null) {
+			System.out.println("HALLLELLLUYAAAAAA");
+		} else {
+			System.out.println("HOLLY MOOOOOOOLY !");
+		}
 	}
-	
-	public String create(){
+
+	public String create() {
 		commande = commandeService.save(commande);
 		return "commande-list";
-		
+
 	}
-	
+
 	public ListDataModel<Utilisateur> getUsers() {
 		users.setWrappedData(userService.findAll());
 		return users;
@@ -45,16 +50,18 @@ public class CommandeManagedBean {
 		commande = commandes.getRowData();
 		return "commande";
 	}
+
 	public String addComm() {
 		commande = new Commande();
 		return "commande";
 	}
+
 	public String deleteComm() {
 		commande = commandes.getRowData();
 		commandeService.remove(commande);
 		return "commande-list";
 	}
-	
+
 	public Commande getCommande() {
 		return commande;
 	}
@@ -62,10 +69,10 @@ public class CommandeManagedBean {
 	public void setCommande(Commande commande) {
 		this.commande = commande;
 	}
+
 	public ListDataModel<Commande> getCommandes() {
 		this.commandes.setWrappedData(commandeService.findAll());
 		return commandes;
 	}
-	
-	
+
 }

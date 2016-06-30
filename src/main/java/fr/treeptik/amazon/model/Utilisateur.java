@@ -40,7 +40,7 @@ public class Utilisateur implements Serializable {
 	@Transient
 	private Long nbCommandes;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="client")
 	private List<Commande> commandes;
 
 	public Integer getId() {
