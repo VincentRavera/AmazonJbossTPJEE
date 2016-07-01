@@ -1,5 +1,6 @@
 package fr.treeptik.amazon.ressources;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -15,6 +16,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 
+import fr.treeptik.amazon.dto.webservice.UtilisateurDTORest;
 import fr.treeptik.amazon.model.Utilisateur;
 import fr.treeptik.amazon.service.UtilisateurService;
 
@@ -29,30 +31,60 @@ public class UtilisateurRessources extends Application {
 	private UtilisateurService userService;
 	
 	@POST
-	public Utilisateur saveUtilisateur(Utilisateur user) {
-		return userService.save(user);
+	public UtilisateurDTORest saveUtilisateur(UtilisateurDTORest user) {
+		Utilisateur utilisateur = this.castToDB(user);
+		utilisateur = userService.save(utilisateur);
+		return this.extactDB(utilisateur);
 	}
 	
 	@DELETE
-	public void removeUtillisateur(Utilisateur user) {
-		userService.remove(user);
+	public void removeUtillisateur(UtilisateurDTORest user) {
+		Utilisateur utilisateur = this.castToDB(user);
+		userService.remove(utilisateur);
 	}
 	
 	@PUT
-	public Utilisateur updateUtilisateur(Utilisateur user) {
-		return userService.save(user);
+	public UtilisateurDTORest updateUtilisateur(UtilisateurDTORest user) {
+		Utilisateur utilisateur = this.castToDB(user);
+		utilisateur = userService.save(utilisateur);
+		return this.extactDB(utilisateur);
 	}
 	
 	@GET
-	public List<Utilisateur> findAllUtilisateur() {
-		return userService.findAll();
+	public List<UtilisateurDTORest> findAllUtilisateur() {
+		List<UtilisateurDTORest> users = new ArrayList<>();
+		List<Utilisateur> utilisateurs = userService.findAll();
+		for (Utilisateur utilisateur : utilisateurs) {
+			users.add(this.extactDB(utilisateur));
+		}
+		return users;
 	}
 	
 	@GET
 	@Path("{id}")
-	public Utilisateur findByIdUtilisateur(@PathParam("id") Integer id) {
-		return userService.findById(id);
+	public UtilisateurDTORest findByIdUtilisateur(@PathParam("id") Integer id) {
+		Utilisateur utilisateur = userService.findById(id);
+		return this.extactDB(utilisateur);
 	}
 	
+	private UtilisateurDTORest extactDB(Utilisateur utilisateur) {
+		UtilisateurDTORest user = new UtilisateurDTORest();
+		user.setId(utilisateur.getId());
+		user.setNom(utilisateur.getNom());
+		user.setPrenom(utilisateur.getPrenom());
+		user.setAdresse(utilisateur.getAdresse());
+		user.setNaissance(utilisateur.getNaissance());
+		return user;
+	}
+	
+	private Utilisateur castToDB(UtilisateurDTORest user) {
+		Utilisateur utilisateur = new Utilisateur();
+		utilisateur.setId(user.getId());
+		utilisateur.setNom(user.getNom());
+		utilisateur.setPrenom(user.getPrenom());
+		utilisateur.setAdresse(user.getAdresse());
+		utilisateur.setNaissance(user.getNaissance());
+		return utilisateur;
+	}
 
 }
